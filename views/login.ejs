@@ -1,0 +1,13 @@
+<%- include("partials/header") %>
+
+    <div class="max-w-md mx-auto mt-24">
+        <h2 class="text-2xl font-bold mb-6">Log In</h2>
+
+        <form action="/login" method="POST" class="flex flex-col gap-4">
+            <input name="email" placeholder="Email" class="border p-2 rounded" />
+            <input name="password" placeholder="Password" type="password" class="border p-2 rounded" />
+
+            <button class="bg-blue-600 text-white p-3 rounded">Login</button>
+        </form>
+    </div>
+    <%- include("partials/footer") %>
