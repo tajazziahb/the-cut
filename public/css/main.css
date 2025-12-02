@@ -1,0 +1,399 @@
+/* =========================================================
+   GLOBAL RESET + BASE
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: "Playfair Display", serif;
+    color: #fff;
+    background: #050318;
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    color: #fff;
+}
+
+p,
+li {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+}
+
+
+/* =========================================================
+   HOMEPAGE (DARK COSMIC UNIVERSE)
+========================================================= */
+
+body.homepage {
+    background: rgb(1, 1, 20);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* HERO */
+.hero {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+.hero-logo {
+    width: 160px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin: 0;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 0;
+    opacity: 0.9;
+    max-width: 750px;
+}
+
+/* Buttons */
+.btn-row {
+    margin-top: 20px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #ffb47f, #d58aff);
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    color: #000;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.85;
+}
+
+.btn-secondary {
+    padding: 12px 32px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-family: "Inter", sans-serif;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* FEATURE CARDS */
+.features-wrapper {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    padding: 0 24px;
+}
+
+.features {
+    display: flex;
+    gap: 22px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.feature-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 24px;
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   AUTH (Login + Signup)
+========================================================= */
+
+body.no-scroll {
+    overflow-y: auto;
+    background: linear-gradient(135deg,
+            #050318 0%,
+            #120726 40%,
+            #2a0c45 100%);
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    padding-top: 140px;
+    padding-bottom: 90px;
+}
+
+.auth-card {
+    width: 420px;
+    background: rgb(4, 2, 19);
+    padding: 48px 40px;
+    border-radius: 26px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
+}
+
+.auth-logo img {
+    width: 56px;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: "Inter", sans-serif;
+    opacity: 0.8;
+}
+
+.auth-label {
+    display: block;
+    font-family: "Inter", sans-serif;
+    margin-bottom: 6px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    margin-bottom: 20px;
+    font-family: "Inter", sans-serif;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    background: linear-gradient(to right, #ffb47f, #d58aff);
+    border: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    color: #000;
+}
+
+.auth-footer {
+    margin-top: 18px;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+}
+
+.auth-footer a {
+    color: #d7b8ff;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    width: 100%;
+    background: linear-gradient(135deg, #ffb493, #9b2d6e);
+    padding: 40px 60px 30px;
+    color: white;
+    font-family: "Inter", sans-serif;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    column-gap: 80px;
+    align-items: start;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-brand img {
+    width: 52px;
+    height: auto;
+}
+
+.footer-brand .brand-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.footer-brand .brand-tagline {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.footer-col h4 {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.75;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col li {
+    margin-bottom: 6px;
+    list-style: none;
+}
+
+.footer-col a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: 0.2s;
+    font-family: "Inter", sans-serif;
+}
+
+.footer-col a:hover {
+    opacity: 1;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-family: "Inter", sans-serif;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-card {
+        width: 100%;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        row-gap: 40px;
+    }
+
+    .footer-brand {
+        text-align: center;
+    }
+
+    .footer-columns {
+        justify-content: center;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 2.6rem;
+    }
+
+    .auth-card {
+        width: 90%;
+    }
+
+    .features-wrapper {
+        padding: 0 16px;
+    }
+
+    .footer-columns {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+
+/* =========================================================
+   SMALL EXTRA FIXES
+========================================================= */
+
+/* Make sure logos never blow up */
+.header-logo {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+}
+
+.auth-logo img {
+    width: 70px;
+    height: auto;
+    object-fit: contain;
+}

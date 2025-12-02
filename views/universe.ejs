@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cut · Financial Universe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/universe.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+</head>
+
+<body class="universe-body">
+    <div class="nebula-overlay"></div>
+    <div class="starfield starfield-one"></div>
+    <div class="starfield starfield-two"></div>
+
+    <header class="universe-header">
+        <div class="brand">
+            <img src="/images/logo-notext.png" alt="The Cut logo" class="brand-logo">
+            <div>
+                <p class="eyebrow">The Cut</p>
+                <h1>Financial Universe</h1>
+            </div>
+        </div>
+
+        <div class="user-panel">
+            <p class="welcome">
+                Welcome back,
+                <strong>
+                    <%= (user.name || user.email || "")
+                        .split(" ")
+                        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                        .join(" ") %>
+                </strong>
+            </p>
+            <div class="panel-buttons">
+                <button type="button" class="ghost-btn" id="connectPlaidBtn"
+                    data-has-plaid="<%= Boolean(user.plaidAccessToken) %>">
+                    <%= user.plaidAccessToken ? "Refresh Plaid" : "Connect Bank" %>
+                </button>
+                <a class="ghost-btn" href="/logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="universe-grid">
+        <section class="card chart-card">
+            <div class="card-head">
+                <div>
+                    <p class="eyebrow">Spending Galaxy</p>
+                    <h2>Where your dollars orbit</h2>
+                </div>
+                <span class="chip"><%= ringData.labels.length || 0 %> categories</span>
+            </div>
+            <canvas id="spendingChart"></canvas>
+        </section>
+
+        <section class="card orb-card">
+            <div class="card-head">
+                <div>
+                    <p class="eyebrow">Breathing Room</p>
+                    <h2>Energy Gauge</h2>
+                </div>
+                <span id="br-label" class="chip muted">Calibrating…</span>
+            </div>
+
+            <div class="orb-wrap" id="orbWrap">
+                <div id="br-orb">
+                    <span id="br-percent">0%</span>
+                    <span class="orb-pulse"></span>
+                </div>
+                <div class="orb-readout">
+                    <p id="br-message"></p>
+                </div>
+            </div>
+
+            <div class="life-actions">
+                <p class="eyebrow">Life Choice Simulator</p>
+                <div class="life-grid">
+                    <button type="button" class="life-btn" data-shift="8" data-label="+ Housing break">
+                        Downsize housing (+8%)
+                    </button>
+                    <button type="button" class="life-btn" data-shift="5" data-label="+ Pay off debt">
+                        Pay down debt (+5%)
+                    </button>
+                    <button type="button" class="life-btn" data-shift="-6" data-label="- New childcare">
+                        Add childcare (-6%)
+                    </button>
+                    <button type="button" class="life-btn" data-shift="-4" data-label="- Lifestyle glow">
+                        Upgrade lifestyle (-4%)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card form-card">
+            <div class="card-head">
+                <div>
+                    <p class="eyebrow">Manual Entry</p>
+                    <h2>Add a transaction</h2>
+                </div>
+            </div>
+            <form action="/universe/add" method="POST" class="tx-form">
+                <div class="field">
+                    <label>Date</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="field">
+                    <label>Type</label>
+                    <select name="type" required>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option>Rent/Mortgage</option>
+                        <option>Utilities</option>
+                        <option>Groceries</option>
+                        <option>Transportation</option>
+                        <option>Insurance</option>
+                        <option>Debt Payments</option>
+                        <option>Health & Medical</option>
+                        <option>Dining Out</option>
+                        <option>Shopping</option>
+                        <option>Entertainment</option>
+                        <option>Subscriptions</option>
+                        <option>Travel</option>
+                        <option>Personal Care</option>
+                        <option>Work</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Amount</label>
+                    <input type="number" name="amount" step="0.01" min="0" required>
+                </div>
+                <div class="field field-full">
+                    <label>Note</label>
+                    <input type="text" name="note" placeholder="Optional context">
+                </div>
+                <div class="field field-full">
+                    <button class="primary-btn">Save transaction</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card stats-card">
+            <div class="card-head">
+                <div>
+                    <p class="eyebrow">Vitals</p>
+                    <h2>Current readings</h2>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div>
+                    <p class="stat-label">Total income</p>
+                    <p class="stat-value">$<%= stats.totalIncome.toFixed(2) %></p>
+                </div>
+                <div>
+                    <p class="stat-label">Total expenses</p>
+                    <p class="stat-value">$<%= stats.totalExpense.toFixed(2) %></p>
+                </div>
+                <div>
+                    <p class="stat-label">Essentials</p>
+                    <p class="stat-value">$<%= stats.essentialSpent.toFixed(2) %></p>
+                </div>
+                <div>
+                    <p class="stat-label">Lifestyle</p>
+                    <p class="stat-value">$<%= stats.lifestyleSpent.toFixed(2) %></p>
+                </div>
+            </div>
+            <p class="card-note">
+                <%= stats.lastPlaidPull ? `Synced ${stats.lastPlaidPull.toLocaleDateString()}` : "Sync Plaid for live balances" %>
+            </p>
+            <p class="card-note subtle">
+                Essentials = rent/mortgage, insurance, utilities, groceries, transportation. Lifestyle covers everything discretionary.
+            </p>
+        </section>
+
+        <section class="card table-card">
+            <div class="card-head">
+                <div>
+                    <p class="eyebrow">Manual Transactions</p>
+                    <h2>Adjust & curate</h2>
+                </div>
+                <span class="chip"><%= manualTx.length %> entries</span>
+            </div>
+            <% if (!manualTx.length) { %>
+                <p class="card-note">No manual entries yet. Add one to anchor the experience.</p>
+            <% } else { %>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Note</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% manualTx.forEach(tx => { 
+                                const isoDate = tx.date ? new Date(tx.date).toISOString().slice(0,10) : "";
+                                const friendlyDate = tx.date ? new Date(tx.date).toLocaleDateString() : "--";
+                            %>
+                                <tr>
+                                    <td><%= friendlyDate %></td>
+                                    <td class="type <%= tx.type %>"><%= tx.type %></td>
+                                    <td><%= tx.category %></td>
+                                    <td>$<%= Number(tx.amount).toFixed(2) %></td>
+                                    <td><%= tx.note || "—" %></td>
+                                    <td class="actions">
+                                        <button type="button" class="ghost-btn edit-toggle" data-target="edit-<%= tx._id %>">Edit</button>
+                                        <form action="/universe/<%= tx._id %>/delete" method="POST" class="inline-form">
+                                            <button class="ghost-btn danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr class="edit-row" id="edit-<%= tx._id %>">
+                                    <td colspan="6">
+                                        <form action="/universe/<%= tx._id %>/edit" method="POST" class="inline-edit">
+                                            <label>
+                                                <span>Date</span>
+                                                <input type="date" name="date" value="<%= isoDate %>" required>
+                                            </label>
+                                            <label>
+                                                <span>Type</span>
+                                                <select name="type" required>
+                                                    <option value="income" <%= tx.type === "income" ? "selected" : "" %>>Income</option>
+                                                    <option value="expense" <%= tx.type === "expense" ? "selected" : "" %>>Expense</option>
+                                                </select>
+                                            </label>
+                                            <label>
+                                                <span>Category</span>
+                                                <select name="category" required>
+                                                    <option <%= tx.category === "Rent/Mortgage" ? "selected" : "" %>>Rent/Mortgage</option>
+                                                    <option <%= tx.category === "Utilities" ? "selected" : "" %>>Utilities</option>
+                                                    <option <%= tx.category === "Groceries" ? "selected" : "" %>>Groceries</option>
+                                                    <option <%= tx.category === "Transportation" ? "selected" : "" %>>Transportation</option>
+                                                    <option <%= tx.category === "Insurance" ? "selected" : "" %>>Insurance</option>
+                                                    <option <%= tx.category === "Debt Payments" ? "selected" : "" %>>Debt Payments</option>
+                                                    <option <%= tx.category === "Health & Medical" ? "selected" : "" %>>Health & Medical</option>
+                                                    <option <%= tx.category === "Dining Out" ? "selected" : "" %>>Dining Out</option>
+                                                    <option <%= tx.category === "Shopping" ? "selected" : "" %>>Shopping</option>
+                                                    <option <%= tx.category === "Entertainment" ? "selected" : "" %>>Entertainment</option>
+                                                    <option <%= tx.category === "Subscriptions" ? "selected" : "" %>>Subscriptions</option>
+                                                    <option <%= tx.category === "Travel" ? "selected" : "" %>>Travel</option>
+                                                    <option <%= tx.category === "Personal Care" ? "selected" : "" %>>Personal Care</option>
+                                                    <option <%= tx.category === "Work" ? "selected" : "" %>>Work</option>
+                                                    <option <%= tx.category === "Other" ? "selected" : "" %>>Other</option>
+                                                </select>
+                                            </label>
+                                            <label>
+                                                <span>Amount</span>
+                                                <input type="number" name="amount" step="0.01" value="<%= Number(tx.amount).toFixed(2) %>" required>
+                                            </label>
+                                            <label class="wide">
+                                                <span>Note</span>
+                                                <input type="text" name="note" value="<%= tx.note || "" %>">
+                                            </label>
+                                            <div class="edit-actions">
+                                                <button class="primary-btn compact">Update</button>
+                                                <button type="button" class="ghost-btn edit-toggle" data-target="edit-<%= tx._id %>">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </section>
+
+        <section class="card plaid-card">
+            <div class="card-head">
+                <div>
+                    <p class="eyebrow">Plaid Feed</p>
+                    <h2>Latest synced activity</h2>
+                </div>
+                <span class="chip"><%= plaidTx.length %> pulled</span>
+            </div>
+
+            <% if (!plaidTx.length) { %>
+                <p class="card-note">Connect Plaid to stream verified activity straight into this orbit.</p>
+            <% } else { %>
+                <div class="plaid-scroll">
+                    <table class="plaid-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th class="text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% plaidTx.forEach((tx, idx) => { 
+                                const readableDate = tx.date ? new Date(tx.date).toLocaleDateString() : "--";
+                            %>
+                                <tr class="<%= idx >= 10 ? 'plaid-extra' : '' %>">
+                                    <td><%= readableDate %></td>
+                                    <td><%= tx.name %></td>
+                                    <td><%= Array.isArray(tx.category) ? tx.category[0] : (tx.category || "Other") %></td>
+                                    <td class="text-right <%= tx.amount < 0 ? 'income' : 'expense' %>">
+                                        <%= tx.amount < 0 ? '+' : '-' %>$<%= Math.abs(tx.amount).toFixed(2) %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <% if (plaidTx.length > 10) { %>
+                        <button type="button" class="ghost-btn plaid-more" id="plaidMoreBtn" data-expanded="false">
+                            View more activity
+                        </button>
+                    <% } %>
+                </div>
+            <% } %>
+        </section>
+    </main>
+
+    <script>
+        window.ringData = <%- JSON.stringify(ringData) %>;
+        window.initialBR = <%= breathingRoomPercent %>;
+    </script>
+    <script src="/js/universe.js"></script>
+
+    <%- include("partials/footer") %>

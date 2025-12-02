@@ -1,13 +1,43 @@
-<%- include("partials/header") %>
+<%- include("partials/homeHeader", { title: "Log In" }) %>
+<body class="no-scroll">
+    
 
-    <div class="max-w-md mx-auto mt-24">
-        <h2 class="text-2xl font-bold mb-6">Log In</h2>
+    <main class="auth-page">
+        <section class="auth-card">
+            
+            <div class="auth-logo">
+                <img src="/images/logo-notext.png" alt="The Cut logo">
+            </div>
 
-        <form action="/login" method="POST" class="flex flex-col gap-4">
-            <input name="email" placeholder="Email" class="border p-2 rounded" />
-            <input name="password" placeholder="Password" type="password" class="border p-2 rounded" />
+            <h1 class="auth-title">Log In</h1>
+            <p class="auth-subtitle">
+                Welcome back. Check in on your breathing room.
+            </p>
 
-            <button class="bg-blue-600 text-white p-3 rounded">Login</button>
-        </form>
-    </div>
+            <form action="/login" method="POST" class="auth-form">
+                
+                <div>
+                    <label class="auth-label" for="email">Email</label>
+                    <input id="email" name="email" type="email"
+                           placeholder="you@example.com" required class="auth-input" />
+                </div>
+
+                <div>
+                    <label class="auth-label" for="password">Password</label>
+                    <input id="password" name="password" type="password"
+                           placeholder="••••••••" required class="auth-input" />
+                </div>
+
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+
+            <p class="auth-footer">
+                New here?
+                <a href="/signup">Create an account</a>
+            </p>
+
+        </section>
+    </main>
+
     <%- include("partials/footer") %>
+</body>

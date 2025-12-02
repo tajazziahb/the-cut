@@ -1,16 +1,47 @@
-<%- include("partials/header") %>
+<body class="no-scroll">
+    <%- include("partials/homeHeader", { title: "Sign Up" }) %>
+    <main class="auth-page">
+        <section class="auth-card">
+            
+            <div class="auth-logo">
+                <img src="/images/logo-notext.png" alt="The Cut logo">
+            </div>
 
-    <div class="max-w-md mx-auto mt-24">
-        <h2 class="text-2xl font-bold mb-6">Create Account</h2>
+            <h1 class="auth-title">Create Account</h1>
+            <p class="auth-subtitle">
+                Set up your profile and start tracking your breathing room.
+            </p>
 
-        <form action="/signup" method="POST" class="flex flex-col gap-4">
-            <input name="name" placeholder="Name" class="border p-2 rounded" />
-            <input name="email" placeholder="Email" type="email" class="border p-2 rounded" />
-            <input name="password" placeholder="Password" type="password" class="border p-2 rounded" />
+            <form action="/signup" method="POST" class="auth-form">
+                
+                <div>
+                    <label class="auth-label" for="name">Name</label>
+                    <input id="name" name="name" type="text"
+                           placeholder="Jazzi B" required class="auth-input" />
+                </div>
 
-            <button class="bg-blue-600 text-white p-3 rounded">Sign Up</button>
-        </form>
+                <div>
+                    <label class="auth-label" for="email">Email</label>
+                    <input id="email" name="email" type="email"
+                           placeholder="you@example.com" required class="auth-input" />
+                </div>
 
-        <p class="mt-4">Already have an account? <a href="/login" class="text-blue-600">Login</a></p>
-    </div>
+                <div>
+                    <label class="auth-label" for="password">Password</label>
+                    <input id="password" name="password" type="password"
+                           placeholder="Create a password" required class="auth-input" />
+                </div>
+
+                <button type="submit" class="auth-button">Sign Up</button>
+            </form>
+
+            <p class="auth-footer">
+                Already have an account?
+                <a href="/login">Log in</a>
+            </p>
+
+        </section>
+    </main>
+
     <%- include("partials/footer") %>
+</body>

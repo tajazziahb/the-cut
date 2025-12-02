@@ -1,11 +1,42 @@
-<%- include("partials/header") %>
+<body class="homepage">
+    <%- include("partials/homeHeader") %>
 
-    <div class="flex flex-col items-center mt-24">
-        <h1 class="text-4xl font-bold mb-6">Breathing Room Meter</h1>
-        <p class="text-lg mb-10">See how much financial space you actually have.</p>
+    <div class="hero">
+        <img src="/images/thecut-logo.png" alt="The Cut logo" class="hero-logo">
 
-        <a href="/signup" class="px-6 py-3 bg-blue-600 text-white rounded-lg mr-4">Get Started</a>
-        <a href="/login" class="px-6 py-3 bg-gray-800 text-white rounded-lg">Login</a>
+        <h1 class="hero-title">Your Money Decoded</h1>
+
+        <p class="hero-subtitle">
+            A clear, visual way to understand how your income, spending, and life choices
+            shape your financial reality. See where you stand — and take control with confidence.
+        </p>
+
+        <div class="btn-row">
+            <a href="/signup" class="btn-primary">Get Started</a>
+            <a href="/login" class="btn-secondary">Login</a>
+        </div>
+    </div>
+
+    <div class="features-wrapper">
+        <div class="features">
+
+            <div class="feature-card">
+                <h3>Personal Snapshot</h3>
+                <p>Break down income and spending into a clean snapshot that shows your true breathing room instantly.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Life Simulations</h3>
+                <p>Model career moves, decisions, and life changes to see how each one shifts your financial space.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Transaction Tracking</h3>
+                <p>View activity from Plaid or manual entries to understand patterns and make clearer decisions.</p>
+            </div>
+
+        </div>
     </div>
 
     <%- include("partials/footer") %>
+</body>

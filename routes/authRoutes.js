@@ -1,22 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
-const passport = require("passport");
 
-// homepage
+/*
+    Router map (Express docs: https://expressjs.com/en/guide/routing.html):
+    - GET / → marketing homepage.
+    - GET/POST /signup → registration form.
+    - GET/POST /login → authentication.
+    - GET /logout → destroy session.
+*/
 router.get("/", (req, res) => {
-    res.render("home");
+    res.render("home", {
+        title: "The Cut",
+        user: req.user || null
+    });
 });
 
-// signup
 router.get("/signup", authController.signupPage);
 router.post("/signup", authController.signupUser);
-
-// login
 router.get("/login", authController.loginPage);
 router.post("/login", authController.loginUser);
-
-// logout
 router.get("/logout", authController.logoutUser);
 
 module.exports = router;

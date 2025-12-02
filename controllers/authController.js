@@ -8,18 +8,27 @@ module.exports = {
     },
 
     signupUser: async (req, res) => {
-        const { name, email, password } = req.body;
+        try {
+            const { name, email, password } = req.body;
 
-        // hash password
-        const hashed = await bcrypt.hash(password, 10);
+            const existing = await User.findOne({ email });
+            if (existing) {
+                return res.render("signup", { error: "Email already in use" });
+            }
 
-        await User.create({
-            name,
-            email,
-            password: hashed
-        });
+            const hashed = await bcrypt.hash(password, 10);
 
-        res.redirect("/login");
+            await User.create({
+                name,
+                email,
+                password: hashed
+            });
+
+            res.redirect("/login");
+        } catch (err) {
+            console.log(err);
+            res.render("signup", { error: "Something went wrong" });
+        }
     },
 
     loginPage: (req, res) => {
@@ -28,7 +37,7 @@ module.exports = {
 
     loginUser: (req, res, next) => {
         passport.authenticate("local", {
-            successRedirect: "/dashboard",
+            successRedirect: "/universe",
             failureRedirect: "/login"
         })(req, res, next);
     },
