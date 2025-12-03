@@ -56,7 +56,7 @@ module.exports = {
             const lifestyleSpent = allTx
                 .filter(t => {
                     const cat = (t.category || "").toLowerCase();
-                    return t.type === "expense" && !essentialsSet.has(cat);
+                    return t.type === "expense" && !essentialsSet.has(cat); 
                 })
                 .reduce((sum, tx) => sum + Number(tx.amount), 0);
 
