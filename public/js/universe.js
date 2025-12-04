@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const brPercentEl = document.getElementById("br-percent");
-    const brLabelEl = document.getElementById("br-label");
-    const brMessageEl = document.getElementById("br-message");
-    const orb = document.getElementById("br-orb");
-    const orbWrap = document.getElementById("orbWrap");
-    const spendingCanvas = document.getElementById("spendingChart");
+    const brPercentEl = document.querySelector("#br-percent");
+    const brLabelEl = document.querySelector("#br-label");
+    const brMessageEl = document.querySelector("#br-message");
+    const orb = document.querySelector("#br-orb");
+    const orbWrap = document.querySelector("#orbWrap");
+    const spendingCanvas = document.querySelector("#spendingChart");
 
     let breathingRoom = Number(window.initialBR || 0);
 
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    applyStatus(clamp(breathingRoom));
+    applyStatus(clamp(breathingRoom)); 
 
     document.querySelectorAll(".life-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -116,13 +116,13 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => {
             const targetId = btn.dataset.target;
             if (!targetId) return;
-            const row = document.getElementById(targetId);
+            const row = document.querySelector(targetId);
             if (!row) return;
             row.classList.toggle("open");
         });
     });
 
-    const plaidBtn = document.getElementById("connectPlaidBtn");
+    const plaidBtn = document.querySelector("#connectPlaidBtn");
     if (plaidBtn) {
         plaidBtn.addEventListener("click", async () => {
             plaidBtn.disabled = true;
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const plaidMoreBtn = document.getElementById("plaidMoreBtn");
+    const plaidMoreBtn = document.querySelector("#plaidMoreBtn");
     if (plaidMoreBtn) {
         plaidMoreBtn.addEventListener("click", () => {
             const expanded = plaidMoreBtn.getAttribute("data-expanded") === "true";

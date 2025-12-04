@@ -1,3 +1,4 @@
+// Integration inspired by Plaid Link docs: https://plaid.com/docs/link/
 const plaidClient = require("../config/plaid");
 const User = require("../models/User");
 

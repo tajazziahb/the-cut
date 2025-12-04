@@ -23,15 +23,18 @@ module.exports = {
             }
             plaidTx = Array.isArray(plaidTx) ? plaidTx : [];
 
+            // Obtain merged transaction list
             const allTx = mergeTransactions(manualTx, plaidTx);
 
             const income = allTx.filter(t => t.type === "income").reduce((a, b) => a + b.amount, 0);
             const expense = allTx.filter(t => t.type === "expense").reduce((a, b) => a + b.amount, 0);
 
+            // Breathing Room % = ((Income - Expense) / Income) * 100
             let br = 0;
             if (income > 0) br = ((income - expense) / income) * 100;
             br = Math.max(0, Math.min(100, br));
 
+            // Prepare donut chart data
             const grouped = {};
             allTx.forEach(t => {
                 const label =
@@ -42,6 +45,7 @@ module.exports = {
                 grouped[label] = (grouped[label] || 0) + Number(t.amount);
             });
 
+            // Construct ringData for charting
             const ringData = {
                 labels: Object.keys(grouped),
                 values: Object.values(grouped)
