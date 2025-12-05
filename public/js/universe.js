@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => {
             const targetId = btn.dataset.target;
             if (!targetId) return;
-            const row = document.querySelector(targetId);
+            const row = document.getElementById(targetId);
             if (!row) return;
             row.classList.toggle("open");
         });
