@@ -12,6 +12,10 @@
                 Set up your profile and start tracking your breathing room.
             </p>
 
+            <% if (typeof error !== "undefined" && error) { %>
+                <div class="auth-error"><%= error %></div>
+            <% } %>
+
             <form action="/signup" method="POST" class="auth-form">
                 
                 <div>

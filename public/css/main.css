@@ -180,6 +180,17 @@ body.no-scroll {
     opacity: 0.8;
 }
 
+.auth-error {
+    margin: 0 auto 20px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 85, 85, 0.15);
+    border: 1px solid rgba(255, 85, 85, 0.4);
+    font-family: "Inter", sans-serif;
+    color: #ff9ea6;
+    text-align: center;
+}
+
 .auth-label {
     display: block;
     font-family: "Inter", sans-serif;
