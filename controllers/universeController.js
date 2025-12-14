@@ -6,7 +6,6 @@ const categoriesMap = require("../utils/categoryMap");
 
 module.exports = {
     /*
-        
         1. Pull manual + Plaid transactions for the authed user.
         2. Merge streams, compute income vs. expenses, and derive donut data.
         3. Build insights + stats, then render the Universe dashboard.
